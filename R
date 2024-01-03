@@ -1,0 +1,25 @@
+install.packages("ggplot2")
+# 필요한 패키지 로드
+library(ggplot2)
+# 데이터 로딩
+start_data <- read.csv('start_station.csv')
+end_data <- read.csv('end_station.csv')
+
+# 데이터 확인
+head(start_data)
+head(end_data)
+
+# 히트맵으로 데이터 시각화: 시작 지점
+ggplot(start_data, aes(x = hour, y = start_station_name, fill = frequency, alpha = frequency)) +
+  geom_tile() +
+  scale_fill_gradient(low = "blue", high = "red") +
+  theme_minimal() +
+  labs(title = 'Heatmap of Start Stations by Hour', x = 'Hour of Day', y = 'Start Station Name')
+# 히트맵으로 데이터 시각화: 시작 지점
+ggplot(end_data, aes(x = hour, y = end_station_name, fill = frequency, alpha = frequency)) +
+  geom_tile() +
+  scale_fill_gradient(low = "blue", high = "red") +
+  theme_minimal() +
+  labs(title = 'Heatmap of Start Stations by Hour', x = 'Hour of Day', y = 'Start Station Name')
+
+
