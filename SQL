@@ -1,0 +1,21 @@
+SELECT start_station_name, EXTRACT(HOUR FROM started_at) as hour, COUNT(*) as frequency
+FROM (
+    SELECT start_station_name, started_at
+    FROM `prefab-faculty-397720.portfolio.1`
+    WHERE member_casual = 'casual'
+    UNION ALL
+    SELECT start_station_name, started_at
+    FROM `prefab-faculty-397720.portfolio.2`
+    WHERE member_casual = 'casual'
+    UNION ALL
+    SELECT start_station_name, started_at
+    FROM `prefab-faculty-397720.portfolio.3`
+    WHERE member_casual = 'casual'
+    UNION ALL
+    SELECT start_station_name, started_at
+    FROM `prefab-faculty-397720.portfolio.4`
+    WHERE member_casual = 'casual'
+)
+GROUP BY start_station_name, hour
+ORDER BY frequency DESC
+LIMIT 30
