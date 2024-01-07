@@ -1,25 +1,27 @@
+# Install the ggplot2 package for data visualization
 install.packages("ggplot2")
-# 필요한 패키지 로드
+
+# Load the ggplot2 package
 library(ggplot2)
-# 데이터 로딩
-start_data <- read.csv('start_station.csv')
-end_data <- read.csv('end_station.csv')
 
-# 데이터 확인
-head(start_data)
-head(end_data)
+# Load data from CSV files
+start_data <- read.csv('start_station.csv')  # Data for start stations
+end_data <- read.csv('end_station.csv')     # Data for end stations
 
-# 히트맵으로 데이터 시각화: 시작 지점
+# Display the first few rows of the data for a preliminary check
+head(start_data)  # Check start station data
+head(end_data)    # Check end station data
+
+# Create a heatmap for start station data
 ggplot(start_data, aes(x = hour, y = start_station_name, fill = frequency, alpha = frequency)) +
-  geom_tile() +
-  scale_fill_gradient(low = "blue", high = "red") +
-  theme_minimal() +
+  geom_tile() +  # Use tile geometry for heatmap
+  scale_fill_gradient(low = "blue", high = "red") +  # Gradient color from blue (low) to red (high)
+  theme_minimal() +  # Minimal theme for a cleaner look
   labs(title = 'Heatmap of Start Stations by Hour', x = 'Hour of Day', y = 'Start Station Name')
-# 히트맵으로 데이터 시각화: 시작 지점
+
+# Create a heatmap for end station data
 ggplot(end_data, aes(x = hour, y = end_station_name, fill = frequency, alpha = frequency)) +
-  geom_tile() +
-  scale_fill_gradient(low = "blue", high = "red") +
-  theme_minimal() +
-  labs(title = 'Heatmap of Start Stations by Hour', x = 'Hour of Day', y = 'Start Station Name')
-
-
+  geom_tile() +  # Use tile geometry for heatmap
+  scale_fill_gradient(low = "blue", high = "red") +  # Gradient color from blue (low) to red (high)
+  theme_minimal() +  # Minimal theme for a cleaner look
+  labs(title = 'Heatmap of End Stations by Hour', x = 'Hour of Day', y = 'End Station Name')
