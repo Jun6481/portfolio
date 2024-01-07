@@ -1,21 +1,30 @@
+-- Select station name, hour of rental start, and count of rentals
 SELECT start_station_name, EXTRACT(HOUR FROM started_at) as hour, COUNT(*) as frequency
 FROM (
+    -- Subquery combining data from four tables for casual members
+    -- First part of the UNION ALL from the first table
     SELECT start_station_name, started_at
     FROM `prefab-faculty-397720.portfolio.1`
     WHERE member_casual = 'casual'
     UNION ALL
+    -- Second part of the UNION ALL from the second table
     SELECT start_station_name, started_at
     FROM `prefab-faculty-397720.portfolio.2`
     WHERE member_casual = 'casual'
     UNION ALL
+    -- Third part of the UNION ALL from the third table
     SELECT start_station_name, started_at
     FROM `prefab-faculty-397720.portfolio.3`
     WHERE member_casual = 'casual'
     UNION ALL
+    -- Fourth part of the UNION ALL from the fourth table
     SELECT start_station_name, started_at
     FROM `prefab-faculty-397720.portfolio.4`
     WHERE member_casual = 'casual'
-)
+) -- End of the subquery
+-- Group the results by station name and hour
 GROUP BY start_station_name, hour
+-- Order the results by frequency in descending order to show the most popular first
 ORDER BY frequency DESC
-LIMIT 30
+-- Limit the results to the top 30
+LIMIT 30;
