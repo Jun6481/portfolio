@@ -1,0 +1,15 @@
+
+SELECT
+  DATE_FORMAT(구매.구매일자, '%Y-%m-%d') AS 구매일자,
+  사용자.성별,
+  CASE
+    WHEN TIMESTAMPDIFF(YEAR, 사용자.생년월일, CURDATE()) <= 20 THEN '20세 이하'
+    ELSE '20세 초과' END AS 연령대,
+  COUNT(DISTINCT 사용자.사용자ID) AS 사용자수,
+  COUNT(구매.구매ID) AS 구매건수,
+  SUM(구매.금액) AS 총구매금액
+FROM 구매
+JOIN 사용자 ON 구매.사용자ID = 사용자.사용자ID
+WHERE 구매.구매일자 BETWEEN '2023-12-01' AND '2023-12-31'
+GROUP BY 구매일자, 사용자.성별, 연령대
+ORDER BY 구매일자, 사용자.성별, 연령대;
